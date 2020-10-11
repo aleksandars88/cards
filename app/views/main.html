@@ -1,0 +1,45 @@
+<h1>Hello, {{vm.name}}</h1>
+
+<input type="text" ng-model="vm.searchText">
+
+<select name="selectedType" id="selectedType" ng-model="vm.selectedType"
+    ng-options="type for type in vm.types track by type">
+    <option value="">Choose type</option>
+</select>
+
+<select name="selectedColor" id="selectedColor" ng-model="vm.selectedColor">
+    <option value="">Choose color</option>
+    <option value="White">White</option>
+    <option value="Blue">Blue</option>
+    <option value="Black">Black</option>
+    <option value="Red">Red</option>
+    <option value="Green">Green</option>
+</select>
+
+<select name="selectedOrder" id="selectedOrder" ng-model="vm.selectedOrder" ng-change='vm.orderSelected()'>
+    <option value="false">Ascending</option>
+    <option value="true">Descending</option>
+</select>
+<div ng-repeat="card in vm.cards | filter:{name:vm.searchText, colors:vm.selectedColor, types:vm.selectedType }:false | orderBy : 'name': vm.reverse" class="card">
+    <div>
+        <img src='{{card.imageUrl}}' width='250' style="background-image: url('no-image.jpg');"/>
+    </div>
+    <div>
+        Name: {{card.name}}
+    </div>
+    <div>
+        Types: 
+        <ul>
+            <li ng-repeat='type in card.types'>{{type}}</li>
+        </ul>
+    </div>
+    <div>
+        Name of the set: {{card.setName}}
+    </div>
+    <div>
+        Colors:
+        <ul>
+            <li ng-repeat='color in card.colors'>{{color}}</li>
+        </ul>
+    </div>    
+</div>
